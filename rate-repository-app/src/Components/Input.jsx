@@ -9,6 +9,12 @@ const styles = StyleSheet.create({
         marginTop: 5,
         color: theme.colors.error,
     },
+    inputError: {
+        borderColor: theme.colors.error,
+    },
+    inputDefault: {
+        borderColor: theme.colors.textPrimary,
+    },
     input: {
         borderColor: theme.colors.textPrimary,
         borderWidth: 1,
@@ -25,7 +31,9 @@ const input = ({ name, ...props }) => {
     return (
         <>
             <TextInput
-                style={styles.input}
+                style={[styles.input,
+                    showError ?  styles.inputError:styles.inputDefault ]}
+                
                 onChangeText={(value) => helpers.setValue(value)}
                 onBlur={() => helpers.setTouched(true)}
                 value={field.value}
