@@ -8,6 +8,7 @@ const theme = {
       dataValue: '#0366d6',
       dataText: '#586069',
       link: '#0366d6',
+      error: '#d73a4a',
     },
     avatarImage: {
         width: 50,
@@ -28,6 +29,7 @@ const theme = {
     bgColor:{
       main:'#e1e4e8',
       appBar:'#24292e',
+      button:'#0366d6',
     }
   };
   
