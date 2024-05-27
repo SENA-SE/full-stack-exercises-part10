@@ -33,9 +33,9 @@ const RepositoryDataPanel = (props) => {
     const {fullName, description, language} = props.item;
     return (
         <View style={styles.container}>
-            <Text >{fullName}</Text>
-            <Text style={styles.description}>{description}</Text>
-            <Text style={styles.language}>{language}</Text>
+            <Text  testId='name'>{fullName}</Text>
+            <Text style={styles.description} testId='description'>{description}</Text>
+            <Text style={styles.language} testId='language'>{language}</Text>
             <RepositoryPanel item={props.item}/>
         </View>
     );

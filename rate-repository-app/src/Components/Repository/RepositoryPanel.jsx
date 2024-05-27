@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
 const RepositoryPanel = ({item}) => {
     return (
         <View style={styles.container}>
-            <RepositoryData number={item.stargazersCount} text='Stars' />
-            <RepositoryData number={item.forksCount} text='Forks' />
-            <RepositoryData number={item.reviewCount} text='Reviews' />
-            <RepositoryData number={item.ratingAverage} text='Rating' />
+            <RepositoryData number={item.stargazersCount} text='Stars'testId='stars' />
+            <RepositoryData number={item.forksCount} text='Forks' testId='forks'/>
+            <RepositoryData number={item.reviewCount} text='Reviews' testId='reviews'/>
+            <RepositoryData number={item.ratingAverage} text='Rating' testId='rating'/>
         </View>
     );
 }
