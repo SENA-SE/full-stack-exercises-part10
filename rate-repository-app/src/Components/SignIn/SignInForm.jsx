@@ -16,10 +16,14 @@ const styles = StyleSheet.create({
     text:{
         color: theme.colors.textPrimary,
         fontSize: theme.fontSizes.subheading,
-    }
+    }, 
+    errorText: {
+        marginTop: 5,
+        color: theme.colors.error,
+    },
     });
 
-const SignInForm = ({onSubmit}) => {
+const SignInForm = ({onSubmit, error}) => {
     return (
         <View style={styles.container}>
             <Input name='username' placeholder='Username'/>
@@ -27,6 +31,7 @@ const SignInForm = ({onSubmit}) => {
             <Pressable onPress={onSubmit}>
                 <Text style={[styles.text, styles.button]}>Sign in</Text>
             </Pressable>
+            {error && <Text style={styles.errorText}>{error}</Text>}
         </View>
     );
 }

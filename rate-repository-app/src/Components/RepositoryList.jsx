@@ -8,7 +8,11 @@ const styles = StyleSheet.create({
   text:{
     backgroundColor: 'white',
     textAlign: 'center',
-  }
+  },
+  loadingText:{
+    backgroundColor: 'white',
+    textAlign: 'center',
+  },
 });
 
 // const repositories = [
