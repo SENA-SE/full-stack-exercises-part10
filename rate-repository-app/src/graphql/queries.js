@@ -4,10 +4,25 @@ import {REPOSITORY_DETAILS} from './fragments';
 
 
 export const GET_AUTHORIZED_USER = gql`
-query {
+query User($includeReviews: Boolean = false){
     authorizedUser {
-        userName,
-        createdAt,
+        id
+        username
+        reviews @include(if: $includeReviews){
+            edges {
+                node {
+                    id
+                    text
+                    rating
+                    createdAt
+                    repositoryId
+                    repository {
+                        id
+                        fullName
+                    }
+                }
+            }
+        }
     }
 }
 `;

@@ -3,9 +3,9 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-native';
 import * as Yup from 'yup';
-import useCreateReview from '../hooks/useCreateReview';
-import theme from '../theme';
-import Input from './Input';
+import useCreateReview from '../../hooks/useCreateReview';
+import theme from '../../theme';
+import Input from '../Input';
 
 const initialValues = {
     ownerName: '',

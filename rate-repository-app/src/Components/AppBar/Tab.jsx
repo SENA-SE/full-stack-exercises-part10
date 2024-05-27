@@ -1,7 +1,7 @@
 import {View, StyleSheet, Text, Pressable} from 'react-native';
 // import { Link } from 'react-router-native';
 import { useQuery, useApolloClient } from '@apollo/client';
-
+import { useNavigate } from 'react-router-native';
 import { GET_AUTHORIZED_USER } from '../../graphql/queries';
 
 import theme from '../../theme';
@@ -40,9 +40,12 @@ const styles = StyleSheet.create({
         const { data } = useQuery(GET_AUTHORIZED_USER);
         const authorizedUser = data ? data.authorizedUser : undefined;
 
+        const navigate = useNavigate();
+
         const signOut = async () => {
             await authStorage.removeAccessToken();
             apolloClient.resetStore();
+            navigate('/signin');
         };
         return (
             <View style={styles.container}>
@@ -55,7 +58,11 @@ const styles = StyleSheet.create({
                         <Text style={styles.button}>Sign Out</Text>
                     </Button>
                     :
-                    <Link route='/signin' text='Sign In'/>
+                    <>
+                        <Link route='/signin' text='Sign In'/>
+                        <Link route='/newreview' text='Create a Review'/>
+                        <Link route='/myreviews' text='My Reviews'/>
+                    </>
                 }
                 {/* </Pressable> */}
             </View>

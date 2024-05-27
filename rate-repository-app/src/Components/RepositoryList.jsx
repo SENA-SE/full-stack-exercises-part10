@@ -1,10 +1,10 @@
 import { View, StyleSheet, } from 'react-native';
-import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../graphql/queries';
+
 import { useNavigate } from 'react-router-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sortOption } from '../utils/sortOption';
 import { useDebounce } from 'use-debounce';
+import useRepositories from '../hooks/useRepositories';
 
 import Text from './Text';
 import RepositoryListContainer from './Repository/RepositoryListContainer';
@@ -37,29 +37,17 @@ const Error = ({message}) => {
   );
 }
 
-// const OrderPicker = ({order, setOrder}) => {
-//   return(
-//     <Picker
-//       selectedValue={order}
-//       onValueChange={(itemValue) => setOrder(itemValue)}
-//     >
-//       {sortOption.map(option => <Picker.Item key={option.id} label={option.label} value={option.value}/>)}
-//     </Picker>
-//   );
-// }
 
 const RepositoryList = () => {
 
   const [order, setOrder] = useState(sortOption[0].value);
   const [searchQuery, setSearchQuery] = useState('');
   const [queryText] = useDebounce(searchQuery, 500);
+  const [variables, setVariables] = useState({orderBy: order, searchKeyword: queryText});
 
   const navigate = useNavigate();
+  const {repositories, loading, error} = useRepositories(variables);
 
-  const { data, loading, error } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network',
-    variables: {orderBy: order, searchKeyword: queryText}
-  });
 
   if (loading) return <Loading />;
   if (error) return <Error message={error.message} />;
@@ -70,10 +58,17 @@ const RepositoryList = () => {
   const onSearchChange = (query) => {
     setSearchQuery(query);
   }
-  const onSortOptionChange = (option) => {
-    setOrder(option);
+
+  const onSortOptionChange = (value) => {
+    setOrder(value);
+    setVariables({...variables, orderBy: value});
   }
-const repositories = data? data.repositories.edges.map(edge => edge.node) : [];
+
+  useEffect(() => {
+    setVariables({...variables, searchKeyword: queryText});
+  }, [queryText]);
+
+// const repositories = data? data.repositories.edges.map(edge => edge.node) : [];
   return (
     <RepositoryListContainer
       repositories={repositories}
