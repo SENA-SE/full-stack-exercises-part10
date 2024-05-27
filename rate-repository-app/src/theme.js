@@ -7,6 +7,7 @@ const theme = {
       black: '#000000',
       dataValue: '#0366d6',
       dataText: '#586069',
+      link: '#0366d6',
     },
     avatarImage: {
         width: 50,
@@ -24,6 +25,10 @@ const theme = {
       normal: '400',
       bold: '700',
     },
+    bgColor:{
+      main:'#e1e4e8',
+      appBar:'#24292e',
+    }
   };
   
   export default theme;
