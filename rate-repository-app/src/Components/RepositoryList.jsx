@@ -1,6 +1,7 @@
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet,Pressable } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphql/queries';
+import { useNavigate } from 'react-router-native';
 import RepositoryItem from './RepositoryItem';
 import Text from './Text';
 
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
 //   },
 // ];
 
-const Loading = () => {
+export const Loading = () => {
   return(
     <View>
       <Text style={styles.text}>Loading...</Text>
@@ -96,5 +97,20 @@ const repositories = data? data.repositories.edges.map(edge => edge.node) : [];
     
   );
 };
+
+export const RepositoryListContainer = ({repositories}) => {
+  const navigate = useNavigate();
+  const onPress = (id) => {
+    navigate(`/repository/${id}`);
+  };
+  return (
+    <FlatList
+      data={repositories}
+      renderItem={({ item }) => <Pressable onPress={() => onPress(item.id)}><RepositoryItem item={item} /></Pressable>}
+      keyExtractor={item => item.id}
+    />
+  );
+  
+}
 
 export default RepositoryList;
