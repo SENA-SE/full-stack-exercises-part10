@@ -1,22 +1,28 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet,} from 'react-native';
+
+import Avatar from './Avatar';
+import RepositoryDataPanel from './Repository/RepositoryDataPanel';
 
 const styles = StyleSheet.create({
-    separator: {
-        height: 10,
+    container:{
+        backgroundColor: 'white',
+        padding: 10,
+        maxWidth: '100%',
+    },
+    top:{
+        display: 'flex',
+        flexDirection: 'row',
     },
     });
 
 const RepositoryItem = ({item}) => {
     console.log(item)
     return (
-        <View style={styles.separator}>
-            <Text>Full name: {item.fullName}</Text>
-            <Text>Description: {item.description}</Text>
-            <Text>Language: {item.language}</Text>
-            <Text>Stars: {item.stargazersCount}</Text>
-            <Text>Forks: {item.forksCount}</Text>
-            <Text>Reviews: {item.reviewCount}</Text>
-            <Text>Rating: {item.ratingAverage}</Text>
+        <View style={styles.container}>
+            <View style={styles.top}>
+                <Avatar url={item.ownerAvatarUrl}/>
+            </View>
+            <RepositoryDataPanel item={item}/>
         </View>
     );
 }

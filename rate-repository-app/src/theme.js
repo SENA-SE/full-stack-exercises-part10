@@ -4,7 +4,15 @@ const theme = {
       textSecondary: '#586069',
       primary: '#0366d6',
       white: '#ffffff',
+      black: '#000000',
+      dataValue: '#0366d6',
+      dataText: '#586069',
     },
+    avatarImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 50 / 2,
+        },
     fontSizes: {
       body: 14,
       subheading: 16,
