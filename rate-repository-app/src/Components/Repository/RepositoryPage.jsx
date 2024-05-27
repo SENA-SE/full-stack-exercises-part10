@@ -6,8 +6,7 @@ import { GET_REPOSITORY } from '../../graphql/queries';
 
 import theme from '../../theme';
 import RepositoryItem from '../RepositoryItem';
-import ReviewItem from '../ReviewItem';
-
+import Review from '../Review/Review';
 const styles = StyleSheet.create({
     container:{
         backgroundColor: theme.colors.white,
@@ -44,7 +43,7 @@ const RepositoryPage = () => {
     return (
         <FlatList
             data = {reviews}
-            renderItem={({item}) => <ReviewItem review={item}/>}
+            renderItem={({item}) => <Review review={item}/>}
             keyExtractor={({id}) => id}
             ListHeaderComponent={() => <RepositoryInfo item={repository}/>}
             style={{padding: 10}}

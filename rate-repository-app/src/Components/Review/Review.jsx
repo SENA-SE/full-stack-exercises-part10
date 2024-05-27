@@ -1,5 +1,8 @@
-import {View, Text, StyleSheet, } from 'react-native';
+import {View, Text, StyleSheet, Alert} from 'react-native';
 import {format} from 'date-fns';
+import {Link } from 'react-router-native';
+import { useMutation } from '@apollo/client';
+import { DELETE_REVIEW } from '../../graphql/mutations';
 import theme from '../../theme';
 const styles = StyleSheet.create({
     container:{
@@ -19,19 +22,44 @@ const styles = StyleSheet.create({
     
 });
 
-const ReviewItem = ({review, showName}) => {
+const Review = ({review, showName = false, refetch}) => {
+    const [deleteReview] = useMutation(DELETE_REVIEW);
+    const handleDelete = async () => {
+        const res = await deleteReview({variables: {id: review.id}});
+        if(res.data.deleteReview){
+            refetch();
+        }
+    };
+
+    const alert = () => {
+        Alert.alert(
+            'Delete review',
+            'Are you sure to delete this review?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: handleDelete,
+                },
+            ]
+        );
+    }
+
+
     return(
         <View style={styles.container}>
-            <View>
-                <Text style={styles.rating}>{review.rating}</Text>
-            </View>
             <View style={styles.reviewContainer}>
-                {showName && <Text>{review.user.username}</Text>}
+                <Text style={styles.rating}>{review.rating}</Text>
                 <Text>{format(new Date(review.createdAt), 'dd.MM.yyyy')}</Text>
                 <Text>{review.text}</Text>
             </View>
+            {showName && <Link to={`/repository/${review.repository.id}`}><Text>{review.repository.fullName}</Text></Link>}
+            <Text onPress={alert}>Delete</Text>
         </View>
     );
 }
 
-export default ReviewItem;
+export default Review;

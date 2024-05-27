@@ -1,7 +1,7 @@
 import {View, Text, AcitivityIndicator, FlatList } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { GET_AUTHORIZED_USER } from '../../graphql/queries';
-import ReviewItem from './Review';
+import Review from './Review';
 
 const Loading = () => {
     return (
@@ -11,12 +11,12 @@ const Loading = () => {
     );
 }
 
-const ReviewList = ({reviews, loading}) => {
+const ReviewList = ({reviews, loading, refetch}) => {
     const reviewNodes = reviews ? reviews.edges.map(edge => edge.node) : [];
     return (
         <FlatList
             data={reviewNodes}
-            renderItem={({item}) => <ReviewItem review={item} showName/>}
+            renderItem={({item}) => <Review review={item} showName refetch={refetch}/>}
             keyExtractor={({id}) => id}
             ListEmptyComponent = {
                 loading? <Loading/> : <Text>No reviews</Text>
@@ -26,13 +26,13 @@ const ReviewList = ({reviews, loading}) => {
     );
 }
 const MyReview = () => {
-    const { data, loading } = useQuery(GET_AUTHORIZED_USER, {
+    const { data, loading, refetch } = useQuery(GET_AUTHORIZED_USER, {
         variables: { includeReviews: true },
         fetchPolicy: 'cache-and-network',
     });
     const reviews = data?.authorizedUser.reviews? data.authorizedUser.reviews : [];
     return (
-        <ReviewList reviews={reviews} loading={loading}/>
+        <ReviewList reviews={reviews} loading={loading} refetch={refetch}/>
     );
 }
 
