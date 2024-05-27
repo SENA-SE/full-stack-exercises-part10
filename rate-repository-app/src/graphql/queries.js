@@ -13,3 +13,12 @@ query {
 }
 ${REPOSITORY_DETAILS}
 `;
+
+export const GET_AUTHORIZED_USER = gql`
+query {
+    authorizedUser {
+        userName,
+        createdAt,
+    }
+}
+`;

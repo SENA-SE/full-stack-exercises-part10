@@ -4,6 +4,8 @@ import SignInForm from "./SignInForm";
 import {View, StyleSheet} from 'react-native';
 import { Formik } from "formik";
 import { useState } from "react";
+import { useNavigate } from "react-router-native";
+
 import useSignIn from "../../hooks/useSignIn";
 import * as Yup from 'yup';
 
@@ -23,12 +25,15 @@ const SignIn = () => {
     const [signIn] = useSignIn();
     const [error, setError] = useState(null);
 
+    const navigate = useNavigate();
+
     const onSubmit = async (values) => {
         const {username, password} = values;
         try{
             const res = await signIn({username, password});
             console.log(res)
             setError(null)
+            navigate('/')
         }catch(e){
             setError(e.message);
         }
