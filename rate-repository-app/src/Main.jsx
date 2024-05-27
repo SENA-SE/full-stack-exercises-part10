@@ -4,7 +4,7 @@ import RepositoryList from './Components/RepositoryList';
 import AppBar from './Components/AppBar/AppBar';
 import SignIn from './Components/SignIn/SignIn';
 import RepositoryPage from './Components/Repository/RepositoryPage';
-
+import SignUp from './Components/SignUp/SignUp';
 const style = StyleSheet.create({
     container: { 
         backgroundColor: '#e1e4e8',
@@ -23,6 +23,7 @@ const Main = () => {
                 <Route path='/' element={<RepositoryList/>}/>
                 <Route path='/signin' element={<SignIn/>}/>
                 <Route path='/repository/:id' element={<RepositoryPage />} />
+                <Route path='/signup' element={<SignUp/>}/>
             </Routes>
         </View>
     );

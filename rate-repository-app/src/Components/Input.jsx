@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
     });
 
-const input = ({ name, ...props }) => {
+const Input = ({ name, ...props }) => {
     const [field, meta, helpers] = useField(name);
     const showError = meta.touched && meta.error;
 
@@ -45,4 +45,4 @@ const input = ({ name, ...props }) => {
     );
 };
 
-export default input;
+export default Input;

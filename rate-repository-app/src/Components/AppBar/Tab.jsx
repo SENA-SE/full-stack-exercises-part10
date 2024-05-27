@@ -1,11 +1,12 @@
 import {View, StyleSheet, Text, Pressable} from 'react-native';
-import { Link } from 'react-router-native';
+// import { Link } from 'react-router-native';
 import { useQuery, useApolloClient } from '@apollo/client';
-import AuthStorage from '../../utils/authStorage';
+
 import { GET_AUTHORIZED_USER } from '../../graphql/queries';
 
 import theme from '../../theme';
-
+import AuthStorage from '../../utils/authStorage';
+import Link from './Link';
 const styles = StyleSheet.create({
     container: {
         backgroundColor: theme.colors.white,
@@ -45,26 +46,16 @@ const styles = StyleSheet.create({
         };
         return (
             <View style={styles.container}>
-                {/* <Pressable style={({ pressed }) => [
-                    {
-                        backgroundColor: pressed
-                            ? theme.colors.primary
-                            : theme.colors.white
-                    },
-                    styles.button
-                ]}> */}
-                <Link to='/' underlayColor={theme.colors.link}>
-                    <Text style={styles.link}>Repositories</Text>
-                </Link>
+                <Link route='/' text='Repositories'/>
+                {authorizedUser && <Link route='/createReview' text='Create a Review'/>}
+
                 {
                     authorizedUser ? 
                     <Button onPress={signOut} >
                         <Text style={styles.button}>Sign Out</Text>
                     </Button>
                     :
-                    <Link to='/signin' underlayColor={theme.colors.link}>
-                        <Text style={styles.link}>Sign In</Text>
-                    </Link>
+                    <Link route='/signin' text='Sign In'/>
                 }
                 {/* </Pressable> */}
             </View>
